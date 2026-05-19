@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GeoCreaciones – Domos Geodésicos</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dark: #0d0f0e;
+    --dark2: #141714;
+    --card: #181c18;
+    --green: #3d7a4a;
+    --green-light: #5aab6a;
+    --green-accent: #a8d5b0;
+    --gold: #c9a84c;
+    --text: #e8ede9;
+    --muted: #8a9e8d;
+    --border: #2a342b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(13,15,14,0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    transition: all 0.3s;
+  }
+
+  .nav-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    color: var(--green-accent);
+    text-decoration: none;
+  }
+
+  .nav-logo span {
+    color: var(--gold);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--green-accent); }
+
+  .nav-cta {
+    background: var(--green);
+    color: #fff !important;
+    padding: 0.5rem 1.3rem;
+    border-radius: 2px;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--green-light) !important; color: #fff !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 6rem 3rem 4rem;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 100%, rgba(61,122,74,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 80% 20%, rgba(201,168,76,0.07) 0%, transparent 60%),
+      linear-gradient(180deg, #0d0f0e 0%, #111511 100%);
+  }
+
+  /* Geometric dome pattern background */
+  .hero-geo {
+    position: absolute;
+    right: -5%;
+    top: 10%;
+    width: 55vw;
+    max-width: 700px;
+    opacity: 0.07;
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 0.35rem 1rem;
+    margin-bottom: 1.8rem;
+    font-weight: 500;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+    color: #fff;
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    color: var(--green-accent);
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    max-width: 480px;
+    font-weight: 400;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--green);
+    color: #fff;
+    padding: 0.9rem 2.2rem;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.25s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--green-light); transform: translateY(-1px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    padding: 0.9rem 2.2rem;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: border-color 0.25s, color 0.25s;
+    display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--green-accent); color: var(--green-accent); }
+
+  .hero-visual {
+    position: relative;
+  }
+
+  .hero-img-wrap {
+    position: relative;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .hero-img-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(61,122,74,0.15) 0%, transparent 50%);
+    z-index: 1;
+  }
+
+  .hero-img-wrap img {
+    width: 100%;
+    height: 520px;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.85) saturate(0.9);
+    transition: transform 0.6s ease;
+  }
+  .hero-img-wrap:hover img { transform: scale(1.03); }
+
+  .hero-badge {
+    position: absolute;
+    bottom: -1.5rem;
+    left: -1.5rem;
+    background: var(--dark2);
+    border: 1px solid var(--border);
+    padding: 1.2rem 1.5rem;
+    z-index: 3;
+  }
+
+  .hero-badge strong {
+    display: block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--green-accent);
+    line-height: 1;
+  }
+
+  .hero-badge span {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    background: var(--card);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 2rem 3rem;
+  }
+
+  .stats-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--green-accent);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 0.3rem;
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 6rem 3rem;
+  }
+
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-tag {
+    font-size: 0.68rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 1.2rem;
+  }
+
+  .section-sub {
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.8;
+    max-width: 560px;
+    font-weight: 400;
+  }
+
+  .divider {
+    width: 50px;
+    height: 2px;
+    background: var(--green);
+    margin: 1.5rem 0;
+  }
+
+  /* NOSOTROS */
+  #nosotros .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    margin-top: 4rem;
+  }
+
+  .nosotros-img {
+    position: relative;
+  }
+
+  .nosotros-img img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border: 1px solid var(--border);
+    filter: brightness(0.85) saturate(0.85);
+  }
+
+  .nosotros-img::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: -20px;
+    bottom: -20px;
+    border: 1px solid var(--border);
+    z-index: -1;
+  }
+
+  .nosotros-text p {
+    color: var(--muted);
+    line-height: 1.9;
+    margin-bottom: 1.2rem;
+    font-weight: 400;
+    font-size: 1rem;
+  }
+
+  .nosotros-text strong {
+    color: var(--green-accent);
+    font-weight: 600;
+  }
+
+  /* PRODUCTOS */
+  #productos {
+    background: var(--dark2);
+  }
+
+  .productos-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3.5rem;
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+  }
+
+  .product-card {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--card);
+    border: 1px solid var(--border);
+  }
+
+  .product-card img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.75) saturate(0.8);
+    transition: transform 0.6s ease, filter 0.4s ease;
+  }
+
+  .product-card:hover img {
+    transform: scale(1.06);
+    filter: brightness(0.85) saturate(0.9);
+  }
+
+  .product-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(13,15,14,0.95) 0%, rgba(13,15,14,0.3) 50%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem;
+    transition: background 0.3s;
+  }
+
+  .product-card:hover .product-overlay {
+    background: linear-gradient(to top, rgba(13,15,14,0.98) 0%, rgba(13,15,14,0.5) 60%, rgba(61,122,74,0.1) 100%);
+  }
+
+  .product-cat {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .product-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.8rem;
+    line-height: 1.2;
+  }
+
+  .product-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+
+  .product-card:hover .product-desc {
+    max-height: 120px;
+  }
+
+  .product-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--green-accent);
+    font-weight: 600;
+    margin-top: 1rem;
+    text-decoration: none;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+
+  .product-card:hover .product-link {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* VENTAJAS */
+  #ventajas .header-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: end;
+    margin-bottom: 4rem;
+  }
+
+  .ventajas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+  }
+
+  .ventaja-item {
+    background: var(--dark);
+    padding: 2.5rem 2rem;
+    transition: background 0.3s;
+  }
+
+  .ventaja-item:hover {
+    background: var(--card);
+  }
+
+  .ventaja-icon {
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+    color: var(--green-accent);
+    transition: border-color 0.3s, background 0.3s;
+  }
+
+  .ventaja-item:hover .ventaja-icon {
+    border-color: var(--green);
+    background: rgba(61,122,74,0.1);
+  }
+
+  .ventaja-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+    color: var(--text);
+  }
+
+  .ventaja-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* CONTACTO */
+  #contacto {
+    background: var(--card);
+  }
+
+  #contacto .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+    margin-top: 4rem;
+  }
+
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .contact-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .contact-icon {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    color: var(--green-accent);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .contact-item-title {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+
+  .contact-item-val {
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .form-group label {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    background: var(--dark);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.8rem 1rem;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+    appearance: none;
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: var(--muted); }
+
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    border-color: var(--green);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .form-group select option {
+    background: var(--dark2);
+    color: var(--text);
+  }
+
+  .form-submit {
+    background: var(--green);
+    color: #fff;
+    border: none;
+    padding: 1rem 2rem;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.25s, transform 0.2s;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .form-submit:hover { background: var(--green-light); transform: translateY(-1px); }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark);
+    border-top: 1px solid var(--border);
+    padding: 3rem;
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  .footer-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    color: var(--green-accent);
+  }
+
+  .footer-logo span { color: var(--gold); }
+
+  .footer-tagline {
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-top: 0.3rem;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--green-accent); }
+
+  .footer-social {
+    display: flex;
+    gap: 0.8rem;
+  }
+
+  .social-btn {
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 0.9rem;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .social-btn:hover { border-color: var(--green-accent); color: var(--green-accent); }
+
+  .footer-copy {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 2rem;
+    text-align: center;
+    letter-spacing: 0.05em;
+    border-top: 1px solid var(--border);
+    padding-top: 2rem;
+  }
+
+  /* SCROLL ANIMATIONS */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .fade-up.delay-1 { transition-delay: 0.1s; }
+  .fade-up.delay-2 { transition-delay: 0.2s; }
+  .fade-up.delay-3 { transition-delay: 0.3s; }
+  .fade-up.delay-4 { transition-delay: 0.4s; }
+  .fade-up.delay-5 { transition-delay: 0.5s; }
+  .fade-up.delay-6 { transition-delay: 0.6s; }
+
+  /* WA FLOAT BTN */
+  .wa-float {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 200;
+    background: #25d366;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.35);
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-size: 1.5rem;
+    color: #fff;
+  }
+  .wa-float:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(37,211,102,0.45); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero-content { grid-template-columns: 1fr; }
+    .hero-visual { display: none; }
+    #nosotros .grid { grid-template-columns: 1fr; }
+    .products-grid { grid-template-columns: 1fr; }
+    .ventajas-grid { grid-template-columns: 1fr 1fr; }
+    #contacto .grid { grid-template-columns: 1fr; }
+    .stats-inner { grid-template-columns: repeat(2, 1fr); }
+    .form-row { grid-template-columns: 1fr; }
+    #ventajas .header-row { grid-template-columns: 1fr; }
+    .productos-header { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
+    section { padding: 4rem 1.5rem; }
+    .footer-inner { flex-direction: column; text-align: center; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+  }
+
+  @media (max-width: 600px) {
+    .ventajas-grid { grid-template-columns: 1fr; }
+    .stats-inner { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">GEO<span>CREACIONES</span></a>
+  <ul class="nav-links">
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#productos">Productos</a></li>
+    <li><a href="#ventajas">Ventajas</a></li>
+    <li><a href="#contacto" class="nav-cta">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- WA FLOAT -->
+<a href="https://wa.me/5492945111111" target="_blank" class="wa-float" title="WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" viewBox="0 0 16 16">
+    <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+  </svg>
+</a>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+
+  <!-- Geometric SVG decoration -->
+  <svg class="hero-geo" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#a8d5b0" stroke-width="0.8">
+    <circle cx="300" cy="300" r="280"/>
+    <circle cx="300" cy="300" r="240"/>
+    <circle cx="300" cy="300" r="200"/>
+    <line x1="300" y1="20" x2="300" y2="580"/>
+    <line x1="20" y1="300" x2="580" y2="300"/>
+    <line x1="82" y1="82" x2="518" y2="518"/>
+    <line x1="518" y1="82" x2="82" y2="518"/>
+    <polygon points="300,20 555,160 555,440 300,580 45,440 45,160"/>
+    <polygon points="300,100 490,210 490,390 300,500 110,390 110,210"/>
+    <polygon points="300,60 530,185 530,415 300,540 70,415 70,185"/>
+    <line x1="300" y1="20" x2="555" y2="160"/>
+    <line x1="555" y1="160" x2="555" y2="440"/>
+    <line x1="555" y1="440" x2="300" y2="580"/>
+    <line x1="300" y1="580" x2="45" y2="440"/>
+    <line x1="45" y1="440" x2="45" y2="160"/>
+    <line x1="45" y1="160" x2="300" y2="20"/>
+    <line x1="300" y1="20" x2="490" y2="210"/>
+    <line x1="555" y1="160" x2="490" y2="210"/>
+    <line x1="490" y1="210" x2="490" y2="390"/>
+    <line x1="555" y1="440" x2="490" y2="390"/>
+    <line x1="490" y1="390" x2="300" y2="500"/>
+    <line x1="300" y1="580" x2="300" y2="500"/>
+    <line x1="300" y1="500" x2="110" y2="390"/>
+    <line x1="45" y1="440" x2="110" y2="390"/>
+    <line x1="110" y1="390" x2="110" y2="210"/>
+    <line x1="45" y1="160" x2="110" y2="210"/>
+    <line x1="110" y1="210" x2="300" y2="100"/>
+    <line x1="300" y1="20" x2="300" y2="100"/>
+    <line x1="300" y1="100" x2="490" y2="210"/>
+    <line x1="490" y1="210" x2="300" y2="300"/>
+    <line x1="300" y1="300" x2="110" y2="210"/>
+    <line x1="300" y1="300" x2="490" y2="390"/>
+    <line x1="490" y1="390" x2="300" y2="500"/>
+    <line x1="300" y1="300" x2="110" y2="390"/>
+  </svg>
+
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-tag">Domos Geodésicos · Argentina</div>
+      <h1>Vivir en armonía con la <em>naturaleza</em></h1>
+      <p class="hero-sub">Construimos domos geodésicos únicos — desde refugios para descansar hasta viviendas completas. Diseño innovador, materiales sostenibles, montaje eficiente.</p>
+      <div class="hero-btns">
+        <a href="#productos" class="btn-primary">Ver Productos</a>
+        <a href="#contacto" class="btn-outline">Pedir Presupuesto</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-img-wrap">
+        <img src="https://domegeodesic.wordpress.com/wp-content/uploads/2024/09/home.jpg" alt="Domo GeoCreaciones" onerror="this.src='https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=800&q=80'">
+        <div class="hero-badge">
+          <strong>3+</strong>
+          <span>Años de experiencia</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="fade-up">
+      <div class="stat-num">3+</div>
+      <div class="stat-label">Años construyendo</div>
+    </div>
+    <div class="fade-up delay-1">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Líneas de producto</div>
+    </div>
+    <div class="fade-up delay-2">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Personalizable</div>
+    </div>
+    <div class="fade-up delay-3">
+      <div class="stat-num">∞</div>
+      <div class="stat-label">Posibilidades de diseño</div>
+    </div>
+  </div>
+</div>
+
+<!-- NOSOTROS -->
+<section id="nosotros">
+  <div class="section-inner">
+    <div class="grid">
+      <div class="nosotros-img fade-up">
+        <img src="https://domegeodesic.wordpress.com/wp-content/uploads/2024/09/9eff8b92-c9d0-4798-ac74-c3d60ab30727-1.png" alt="Domo Residencial" onerror="this.src='https://images.unsplash.com/photo-1502005097973-6a7082348e28?w=800&q=80'">
+      </div>
+      <div class="nosotros-text">
+        <span class="section-tag">Quiénes somos</span>
+        <h2 class="section-title">Más de 3 años construyendo el futuro de la vivienda</h2>
+        <div class="divider"></div>
+        <p>En <strong>GeoCreaciones</strong> nos especializamos en la fabricación de domos geodésicos para distintos usos y proyectos. Somos una empresa nueva con alma artesanal y visión innovadora.</p>
+        <p>Nuestra misión es crear espacios que se integren con el entorno natural, con un <strong>diseño inteligente</strong> que maximiza el espacio interior, la luminosidad y la eficiencia energética.</p>
+        <p>Trabajamos de la mano con cada cliente para <strong>personalizar cada proyecto</strong>, garantizando satisfacción total desde el diseño hasta la entrega.</p>
+        <p style="font-style: italic; color: var(--gold); margin-top: 1.5rem; font-size: 0.95rem;">"La innovación es el motor del progreso."</p>
+        <a href="#contacto" class="btn-primary" style="margin-top: 2rem; display: inline-block;">Hablemos de tu proyecto</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTOS -->
+<section id="productos">
+  <div class="section-inner">
+    <div class="productos-header">
+      <div>
+        <span class="section-tag">Nuestros productos</span>
+        <h2 class="section-title">Encuentra el Domo<br>ideal para vos</h2>
+      </div>
+      <p class="section-sub" style="max-width: 340px; font-size: 0.9rem;">Cada domo es una obra única, diseñada con precisión para ofrecer durabilidad y estética.</p>
+    </div>
+
+    <div class="products-grid">
+
+      <!-- Dormi -->
+      <div class="product-card fade-up">
+        <img src="https://domegeodesic.wordpress.com/wp-content/uploads/2024/09/img_5798.png" alt="Domo Dormi" onerror="this.src='https://images.unsplash.com/photo-1521401830884-6c03c1c87ebb?w=600&q=80'">
+        <div class="product-overlay">
+          <div class="product-cat">Descanso · Refugio</div>
+          <div class="product-name">Domo Dormi</div>
+          <div class="product-desc">Un refugio ideal para la desconexión y el descanso. Se integra perfectamente con el entorno natural, permitiendo la entrada de luz natural y creando un ambiente acogedor. Estructura de madera, calidez y durabilidad.</div>
+          <a href="#contacto" class="product-link">Consultar →</a>
+        </div>
+      </div>
+
+      <!-- Residencial -->
+      <div class="product-card fade-up delay-2">
+        <img src="https://domegeodesic.wordpress.com/wp-content/uploads/2024/09/9eff8b92-c9d0-4798-ac74-c3d60ab30727-1.png" alt="Domo Residencial" onerror="this.src='https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80'">
+        <div class="product-overlay">
+          <div class="product-cat">Vivienda · Hogar</div>
+          <div class="product-name">Domo Residencial</div>
+          <div class="product-desc">Solución innovadora para vivir en armonía con el entorno. Su diseño geodésico maximiza el espacio interior y optimiza la eficiencia energética. Versátil y 100% personalizable para familias.</div>
+          <a href="#contacto" class="product-link">Consultar →</a>
+        </div>
+      </div>
+
+      <!-- Sillón -->
+      <div class="product-card fade-up delay-4">
+        <img src="https://domegeodesic.wordpress.com/wp-content/uploads/2024/09/img_5795-conv.png" alt="Sillón Domo" onerror="this.src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80'">
+        <div class="product-overlay">
+          <div class="product-cat">Mobiliario · Exterior</div>
+          <div class="product-name">Sillón Domo</div>
+          <div class="product-desc">La combinación perfecta de estilo y comodidad. Diseño inspirado en la arquitectura geodésica. Materiales resistentes a la intemperie, ideales para disfrutar de reuniones al aire libre.</div>
+          <a href="#contacto" class="product-link">Consultar →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- VENTAJAS -->
+<section id="ventajas">
+  <div class="section-inner">
+    <div class="header-row">
+      <div class="fade-up">
+        <span class="section-tag">Por qué elegirnos</span>
+        <h2 class="section-title">Ventajas de construir<br>con GeoCreaciones</h2>
+        <div class="divider"></div>
+      </div>
+      <p class="section-sub fade-up delay-2">Diseño, sostenibilidad y atención personalizada en cada proyecto que encaramos.</p>
+    </div>
+
+    <div class="ventajas-grid">
+      <div class="ventaja-item fade-up">
+        <div class="ventaja-icon">◈</div>
+        <div class="ventaja-title">Diseño Innovador</div>
+        <div class="ventaja-desc">Nuestros domos geodésicos combinan estética moderna con funcionalidad, creando espacios únicos que se adaptan a tus necesidades.</div>
+      </div>
+      <div class="ventaja-item fade-up delay-1">
+        <div class="ventaja-icon">♻</div>
+        <div class="ventaja-title">Sostenibilidad</div>
+        <div class="ventaja-desc">Utilizamos materiales ecológicos y técnicas de construcción responsables, garantizando un menor impacto ambiental.</div>
+      </div>
+      <div class="ventaja-item fade-up delay-2">
+        <div class="ventaja-icon">⬡</div>
+        <div class="ventaja-title">Versatilidad de Uso</div>
+        <div class="ventaja-desc">Nuestros domos son ideales para diversas aplicaciones: desde residencias y oficinas hasta espacios recreativos y eventos.</div>
+      </div>
+      <div class="ventaja-item fade-up delay-3">
+        <div class="ventaja-icon">⚡</div>
+        <div class="ventaja-title">Eficiencia Energética</div>
+        <div class="ventaja-desc">La forma geodésica maximiza la eficiencia energética, lo que se traduce en un menor consumo de recursos a largo plazo.</div>
+      </div>
+      <div class="ventaja-item fade-up delay-4">
+        <div class="ventaja-icon">▲</div>
+        <div class="ventaja-title">Fácil Montaje</div>
+        <div class="ventaja-desc">Componentes pre-fabricados con instrucciones claras que facilitan el ensamblaje en el menor tiempo posible.</div>
+      </div>
+      <div class="ventaja-item fade-up delay-5">
+        <div class="ventaja-icon">★</div>
+        <div class="ventaja-title">Atención Personalizada</div>
+        <div class="ventaja-desc">Trabajamos de la mano con vos para entender tus necesidades y personalizar cada proyecto, asegurando tu satisfacción total.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="section-inner">
+    <span class="section-tag">Ponete en contacto</span>
+    <h2 class="section-title">Hablemos de tu proyecto</h2>
+    <div class="divider"></div>
+    <div class="grid">
+      <div class="contact-info fade-up">
+        <p class="section-sub" style="margin-bottom: 1rem;">Contanos tu idea y te asesoramos sin cargo. Cada domo comienza con una conversación.</p>
+
+        <div class="contact-item">
+          <div class="contact-icon">✉</div>
+          <div>
+            <div class="contact-item-title">Email</div>
+            <div class="contact-item-val">contacto@geocreaciones.com</div>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon">📱</div>
+          <div>
+            <div class="contact-item-title">Teléfono / WhatsApp</div>
+            <div class="contact-item-val">(+54) 2945 111111</div>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <div class="contact-item-title">Ubicación</div>
+            <div class="contact-item-val">Patagonia, Argentina</div>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon">📸</div>
+          <div>
+            <div class="contact-item-title">Instagram</div>
+            <div class="contact-item-val">@geocreaciones.com.ar</div>
+          </div>
+        </div>
+
+        <a href="https://wa.me/5492945111111" target="_blank" class="btn-primary" style="margin-top: 1rem; display: inline-block;">
+          💬 Escribinos por WhatsApp
+        </a>
+      </div>
+
+      <div class="contact-form fade-up delay-2">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" placeholder="Tu nombre">
+          </div>
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input type="tel" placeholder="Tu teléfono">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="tu@email.com">
+        </div>
+        <div class="form-group">
+          <label>Me interesa...</label>
+          <select>
+            <option value="">Seleccioná un producto</option>
+            <option>Domo Dormi</option>
+            <option>Domo Residencial</option>
+            <option>Sillón Domo</option>
+            <option>Otro / Consulta general</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Mensaje</label>
+          <textarea placeholder="Contanos sobre tu proyecto..."></textarea>
+        </div>
+        <button class="form-submit" onclick="alert('¡Gracias! En breve te contactamos.')">Enviar Consulta</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">GEO<span>CREACIONES</span></div>
+      <div class="footer-tagline">Domos geodésicos · Patagonia, Argentina</div>
+    </div>
+    <ul class="footer-links">
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#productos">Productos</a></li>
+      <li><a href="#ventajas">Ventajas</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <div class="footer-social">
+      <a href="https://www.instagram.com/geocreaciones.com.ar" target="_blank" class="social-btn" title="Instagram">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.47 2.47 0 0 1-.92-.598 2.47 2.47 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
+        </svg>
+      </a>
+      <a href="https://wa.me/5492945111111" target="_blank" class="social-btn" title="WhatsApp">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+  <div class="footer-inner">
+    <div class="footer-copy" style="width: 100%;">
+      © 2024 GeoCreaciones. Todos los derechos reservados. · Patagonia, Argentina
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Nav scroll effect
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.padding = window.scrollY > 60 ? '0.8rem 3rem' : '1.2rem 3rem';
+  });
+</script>
+</body>
+</html>
