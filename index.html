@@ -392,7 +392,7 @@
 
   .products-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.5px;
   }
 
@@ -403,6 +403,78 @@
     background: var(--card);
     border: 1px solid var(--border);
   }
+
+  .carousel {
+    position: relative;
+    width: 100%;
+    height: 380px;
+    overflow: hidden;
+  }
+
+  .carousel-slides {
+    display: flex;
+    height: 100%;
+    transition: transform 0.5s ease;
+  }
+
+  .carousel-slides img {
+    min-width: 100%;
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    flex-shrink: 0;
+    filter: brightness(0.75) saturate(0.8);
+    transition: filter 0.4s ease;
+  }
+
+  .product-card:hover .carousel-slides img {
+    filter: brightness(0.85) saturate(0.9);
+  }
+
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(13,15,14,0.7);
+    border: 1px solid var(--border);
+    color: var(--text);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 0.9rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .product-card:hover .carousel-btn { opacity: 1; }
+  .carousel-btn.prev { left: 0.5rem; }
+  .carousel-btn.next { right: 0.5rem; }
+  .carousel-btn:hover { background: var(--green); border-color: var(--green); }
+
+  .carousel-dots {
+    position: absolute;
+    bottom: 0.6rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 5px;
+    z-index: 10;
+  }
+
+  .carousel-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .carousel-dot.active { background: var(--green-accent); }
 
   .product-card img {
     width: 100%;
@@ -962,7 +1034,20 @@
 
       <!-- Dormi -->
       <div class="product-card fade-up">
-        <img src="https://domegeodesic.wordpress.com/wp-content/uploads/2024/09/img_5798.png" alt="Domo Dormi" onerror="this.src='https://images.unsplash.com/photo-1521401830884-6c03c1c87ebb?w=600&q=80'">
+        <div class="carousel" data-index="0">
+          <div class="carousel-slides">
+            <img src="https://domegeodesic.wordpress.com/wp-content/uploads/2024/09/img_5798.png" alt="Domo Dormi">
+            <img src="https://lacoma92.github.io/geocreaciones/dormi1.jpeg" alt="Domo Dormi interior">
+            <img src="https://lacoma92.github.io/geocreaciones/dormi2.jpeg" alt="Domo Dormi interior 2">
+          </div>
+          <button class="carousel-btn prev" onclick="carouselPrev(this)">&#8249;</button>
+          <button class="carousel-btn next" onclick="carouselNext(this)">&#8250;</button>
+          <div class="carousel-dots">
+            <div class="carousel-dot active"></div>
+            <div class="carousel-dot"></div>
+            <div class="carousel-dot"></div>
+          </div>
+        </div>
         <div class="product-overlay">
           <div class="product-cat">Descanso · Refugio</div>
           <div class="product-name">Domo Dormi</div>
@@ -973,7 +1058,28 @@
 
       <!-- Residencial -->
       <div class="product-card fade-up delay-2">
-        <img src="https://domegeodesic.wordpress.com/wp-content/uploads/2024/09/9eff8b92-c9d0-4798-ac74-c3d60ab30727-1.png" alt="Domo Residencial" onerror="this.src='https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80'">
+        <div class="carousel" data-index="0">
+          <div class="carousel-slides">
+            <img src="https://domegeodesic.wordpress.com/wp-content/uploads/2024/09/9eff8b92-c9d0-4798-ac74-c3d60ab30727-1.png" alt="Domo Residencial">
+            <img src="https://lacoma92.github.io/geocreaciones/res1.jpeg" alt="Residencial interior">
+            <img src="https://lacoma92.github.io/geocreaciones/res2.jpeg" alt="Residencial baño">
+            <img src="https://lacoma92.github.io/geocreaciones/res3.jpeg" alt="Residencial madera">
+            <img src="https://lacoma92.github.io/geocreaciones/res4.jpeg" alt="Residencial cocina">
+            <img src="https://lacoma92.github.io/geocreaciones/res5.jpeg" alt="Residencial mezzanine">
+            <img src="https://lacoma92.github.io/geocreaciones/res6.jpeg" alt="Residencial iluminado">
+          </div>
+          <button class="carousel-btn prev" onclick="carouselPrev(this)">&#8249;</button>
+          <button class="carousel-btn next" onclick="carouselNext(this)">&#8250;</button>
+          <div class="carousel-dots">
+            <div class="carousel-dot active"></div>
+            <div class="carousel-dot"></div>
+            <div class="carousel-dot"></div>
+            <div class="carousel-dot"></div>
+            <div class="carousel-dot"></div>
+            <div class="carousel-dot"></div>
+            <div class="carousel-dot"></div>
+          </div>
+        </div>
         <div class="product-overlay">
           <div class="product-cat">Vivienda · Hogar</div>
           <div class="product-name">Domo Residencial</div>
@@ -984,11 +1090,46 @@
 
       <!-- Sillón -->
       <div class="product-card fade-up delay-4">
-        <img src="https://domegeodesic.wordpress.com/wp-content/uploads/2024/09/img_5795-conv.png" alt="Sillón Domo" onerror="this.src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80'">
+        <div class="carousel" data-index="0">
+          <div class="carousel-slides">
+            <img src="https://domegeodesic.wordpress.com/wp-content/uploads/2024/09/img_5795-conv.png" alt="Sillón Domo">
+            <img src="https://lacoma92.github.io/geocreaciones/sillon1.jpeg" alt="Sillón Domo detalle">
+            <img src="https://lacoma92.github.io/geocreaciones/sillon2.jpeg" alt="Sillón Domo pareja">
+          </div>
+          <button class="carousel-btn prev" onclick="carouselPrev(this)">&#8249;</button>
+          <button class="carousel-btn next" onclick="carouselNext(this)">&#8250;</button>
+          <div class="carousel-dots">
+            <div class="carousel-dot active"></div>
+            <div class="carousel-dot"></div>
+            <div class="carousel-dot"></div>
+          </div>
+        </div>
         <div class="product-overlay">
           <div class="product-cat">Mobiliario · Exterior</div>
           <div class="product-name">Sillón Domo</div>
           <div class="product-desc">La combinación perfecta de estilo y comodidad. Diseño inspirado en la arquitectura geodésica. Materiales resistentes a la intemperie, ideales para disfrutar de reuniones al aire libre.</div>
+          <a href="#contacto" class="product-link">Consultar →</a>
+        </div>
+      </div>
+
+      <!-- Kit Auto Instalable -->
+      <div class="product-card fade-up delay-6">
+        <div class="carousel" data-index="0">
+          <div class="carousel-slides">
+            <img src="https://lacoma92.github.io/geocreaciones/kit.jpeg" alt="Kit Auto Instalable">
+            <img src="https://lacoma92.github.io/geocreaciones/kit2.jpeg" alt="Kit materiales">
+          </div>
+          <button class="carousel-btn prev" onclick="carouselPrev(this)">&#8249;</button>
+          <button class="carousel-btn next" onclick="carouselNext(this)">&#8250;</button>
+          <div class="carousel-dots">
+            <div class="carousel-dot active"></div>
+            <div class="carousel-dot"></div>
+          </div>
+        </div>
+        <div class="product-overlay">
+          <div class="product-cat">Kit · Auto Instalable</div>
+          <div class="product-name">Kit Auto Instalable</div>
+          <div class="product-desc">Kit completo listo para armar. Incluye estructura, revestimiento y aberturas de paño fijo y batientes.</div>
           <a href="#contacto" class="product-link">Consultar →</a>
         </div>
       </div>
@@ -1169,6 +1310,32 @@
 </footer>
 
 <script>
+
+  // Carousel
+  function carouselGo(btn, dir) {
+    const carousel = btn.closest('.carousel');
+    const slides = carousel.querySelector('.carousel-slides');
+    const imgs = slides.querySelectorAll('img');
+    const dots = carousel.querySelectorAll('.carousel-dot');
+    let idx = parseInt(carousel.dataset.index) || 0;
+    idx = (idx + dir + imgs.length) % imgs.length;
+    carousel.dataset.index = idx;
+    slides.style.transform = `translateX(-${idx * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  }
+  function carouselPrev(btn) { carouselGo(btn, -1); }
+  function carouselNext(btn) { carouselGo(btn, 1); }
+
+  document.querySelectorAll('.carousel-dot').forEach(dot => {
+    dot.addEventListener('click', function() {
+      const carousel = this.closest('.carousel');
+      const dots = carousel.querySelectorAll('.carousel-dot');
+      const idx = Array.from(dots).indexOf(this);
+      carousel.dataset.index = idx;
+      carousel.querySelector('.carousel-slides').style.transform = `translateX(-${idx * 100}%)`;
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    });
+  });
   // Scroll animations
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
