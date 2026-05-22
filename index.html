@@ -409,18 +409,24 @@
     position: absolute;
     inset: 0;
     overflow: hidden;
+    width: 100%;
+    height: 100%;
   }
 
   .carousel-slides {
     display: flex;
     height: 100%;
+    width: 100%;
     transition: transform 0.5s ease;
+    will-change: transform;
   }
 
   .carousel-slides img {
     min-width: 100%;
+    width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center center;
     flex-shrink: 0;
     filter: brightness(0.75) saturate(0.8);
   }
@@ -1122,11 +1128,7 @@
       <div class="product-card fade-up delay-6" style="grid-column: span 3;">
         <div class="carousel" data-index="0">
           <div class="carousel-slides">
-            <img src="https://lacoma92.github.io/geocreaciones/llavemano.jpg" alt="Llave en Mano 1">
-            <img src="https://lacoma92.github.io/geocreaciones/llavemano1.jpg" alt="Llave en Mano 2">
-            <img src="https://lacoma92.github.io/geocreaciones/llavemano2.jpg" alt="Llave en Mano 3">
-            <img src="https://lacoma92.github.io/geocreaciones/llavemano3.jpg" alt="Llave en Mano 4">
-            <img src="https://lacoma92.github.io/geocreaciones/llavemano4.jpg" alt="Llave en Mano 5">
+            <img src="https://lacoma92.github.io/geocreaciones/llavemano.jpg" alt="Llave en Mano">
           </div>
         </div>
         <div class="carousel-nav">
@@ -1135,10 +1137,6 @@
         </div>
         <div class="carousel-dots">
           <div class="carousel-dot active"></div>
-          <div class="carousel-dot"></div>
-          <div class="carousel-dot"></div>
-          <div class="carousel-dot"></div>
-          <div class="carousel-dot"></div>
         </div>
         <div class="product-overlay">
           <div class="product-cat">Servicio · Completo</div>
