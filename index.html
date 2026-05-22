@@ -269,7 +269,7 @@
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: 2rem;
     text-align: center;
   }
@@ -392,7 +392,7 @@
 
   .products-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: 1.5px;
   }
 
@@ -432,7 +432,7 @@
     display: flex;
     justify-content: space-between;
     padding: 0 0.5rem;
-    z-index: 20;
+    z-index: 30;
   }
 
   .carousel-btn {
@@ -458,7 +458,7 @@
     transform: translateX(-50%);
     display: flex;
     gap: 5px;
-    z-index: 20;
+    z-index: 30;
   }
 
   .carousel-dot {
@@ -476,8 +476,10 @@
     bottom: 0; left: 0; right: 0;
     background: linear-gradient(to top, rgba(13,15,14,0.97) 0%, rgba(13,15,14,0.4) 60%, transparent 100%);
     padding: 1.5rem;
-    z-index: 10;
+    z-index: 15;
+    pointer-events: none;
   }
+  .product-overlay a, .product-overlay button { pointer-events: all; }
 
   .product-cat {
     font-size: 0.62rem;
@@ -1006,7 +1008,7 @@
     <div class="products-grid">
 
       <!-- Dormi -->
-      <div class="product-card fade-up">
+      <div class="product-card fade-up" style="grid-column: span 2;">
         <div class="carousel" data-index="0">
           <div class="carousel-slides">
             <img src="https://domegeodesic.wordpress.com/wp-content/uploads/2024/09/img_5798.png" alt="Domo Dormi">
@@ -1032,7 +1034,7 @@
       </div>
 
       <!-- Residencial -->
-      <div class="product-card fade-up delay-2">
+      <div class="product-card fade-up delay-2" style="grid-column: span 2;">
         <div class="carousel" data-index="0">
           <div class="carousel-slides">
             <img src="https://domegeodesic.wordpress.com/wp-content/uploads/2024/09/9eff8b92-c9d0-4798-ac74-c3d60ab30727-1.png" alt="Domo Residencial">
@@ -1066,7 +1068,7 @@
       </div>
 
       <!-- Sillón -->
-      <div class="product-card fade-up delay-4">
+      <div class="product-card fade-up delay-4" style="grid-column: span 2;">
         <div class="carousel" data-index="0">
           <div class="carousel-slides">
             <img src="https://domegeodesic.wordpress.com/wp-content/uploads/2024/09/img_5795-conv.png" alt="Sillón Domo">
@@ -1092,7 +1094,7 @@
       </div>
 
       <!-- Kit Auto Instalable -->
-      <div class="product-card fade-up delay-6">
+      <div class="product-card fade-up delay-6" style="grid-column: span 3;">
         <div class="carousel" data-index="0">
           <div class="carousel-slides">
             <img src="https://lacoma92.github.io/geocreaciones/kit.jpeg" alt="Kit Auto Instalable">
@@ -1111,6 +1113,29 @@
           <div class="product-cat">Arma tu propio Domo</div>
           <div class="product-name">Kit Auto Instalable</div>
           <div class="product-desc">Kit completo para armar tu domo. Estructura, revestimiento y aberturas incluidas.</div>
+          <a href="#contacto" class="product-link">Consultar →</a>
+        </div>
+      </div>
+
+
+      <!-- Llave en Mano -->
+      <div class="product-card fade-up delay-6" style="grid-column: span 3;">
+        <div class="carousel" data-index="0">
+          <div class="carousel-slides">
+            <img src="https://lacoma92.github.io/geocreaciones/llavemano.jpeg" alt="Llave en Mano" onerror="this.src='https://images.unsplash.com/photo-1448630360428-65456885c650?w=600&q=80'">
+          </div>
+        </div>
+        <div class="carousel-nav">
+          <button class="carousel-btn" onclick="carouselPrev(this)">&#8249;</button>
+          <button class="carousel-btn" onclick="carouselNext(this)">&#8250;</button>
+        </div>
+        <div class="carousel-dots">
+          <div class="carousel-dot active"></div>
+        </div>
+        <div class="product-overlay">
+          <div class="product-cat">Servicio · Completo</div>
+          <div class="product-name">Llave en Mano</div>
+          <div class="product-desc">Desde la base hasta habitable. Nos encargamos de todo: estructura, revestimientos, aberturas e instalaciones. Presupuesto según proyecto, terminaciones y destino.</div>
           <a href="#contacto" class="product-link">Consultar →</a>
         </div>
       </div>
@@ -1243,6 +1268,7 @@
               <option>Domo Residencial</option>
               <option>Sillón Domo</option>
               <option>Kit Auto Instalable</option>
+              <option>Llave en Mano</option>
               <option>Otro / Consulta general</option>
             </select>
           </div>
