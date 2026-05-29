@@ -47,16 +47,18 @@
   }
 
   .nav-logo {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 800;
-    letter-spacing: 0.12em;
-    color: var(--green-accent);
+    display: flex;
+    align-items: center;
     text-decoration: none;
   }
 
-  .nav-logo span {
-    color: var(--gold);
+  .nav-logo img {
+    height: 48px;
+    width: auto;
+    /* El logo tiene fondo negro; lo invertimos para que combine con la nav oscura
+       y usamos un filtro para que el blanco del logo se vea bien */
+    filter: brightness(1.1);
+    display: block;
   }
 
   .nav-links {
@@ -875,7 +877,9 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">GEO<span>CREACIONES</span> Construcciones</span></a>
+  <a href="#" class="nav-logo">
+    <img src="GeoCreaciones.png" alt="GeoCreaciones Construcciones">
+  </a>
   <ul class="nav-links">
     <li><a href="#nosotros">Nosotros</a></li>
     <li><a href="#productos">Productos</a></li>
@@ -1300,7 +1304,7 @@
 <footer>
   <div class="footer-inner">
     <div>
-      <div class="footer-logo">GEO<span>CREACIONES</span>Construcciones</span> </div>
+      <img src="GeoCreaciones.png" alt="GeoCreaciones Construcciones" style="height:60px; width:auto; display:block; margin-bottom:0.5rem; filter:brightness(1.05);">
       <div class="footer-tagline">Domos geodésicos · Trevelin, Chubut, Patagonia</div>
     </div>
     <ul class="footer-links">
