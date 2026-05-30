@@ -31,57 +31,83 @@
     overflow-x: hidden;
   }
 
-  /* HEADER LOGO BANNER */
+  /* HEADER BANNER */
   .site-header {
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 101;
     background: #0d0f0e;
-    border-bottom: 1px solid rgba(61,122,74,0.2);
+    border-bottom: 1px solid rgba(61,122,74,0.15);
   }
 
   .header-logo-banner {
-    display: block;
-    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0;
     text-decoration: none;
+    height: 88px;
+    padding: 0 2rem;
+    overflow: hidden;
   }
 
-  .header-logo-banner img {
-    width: 100%;
-    height: 120px;
-    object-fit: cover;
-    object-position: center 30%;
-    display: block;
+  .logo-icon {
+    flex-shrink: 0;
+    width: 88px;
+    height: 88px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .logo-icon img {
+    position: absolute;
+    /* La imagen es 2038x1213. El triangulo esta en el centro-superior.
+       Lo amplificamos para mostrar solo esa zona. */
+    width: 320px;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 1rem;
+    line-height: 1.2;
+  }
+
+  .logo-text .logo-name {
+    font-family: "Playfair Display", serif;
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: #e8ede9;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .logo-text .logo-sub {
+    font-family: "Barlow Condensed", sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 0.1rem;
   }
 
   /* NAV */
   nav {
     position: fixed;
-    top: 120px; left: 0; right: 0;
+    top: 88px; left: 0; right: 0;
     z-index: 100;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0.8rem 3rem;
-    background: rgba(13,15,14,0.95);
+    padding: 0.75rem 3rem;
+    background: rgba(13,15,14,0.96);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
     transition: all 0.3s;
-  }
-
-  .nav-logo {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-  }
-
-  .nav-logo img {
-    height: 80px;
-    width: auto;
-    /* El logo tiene fondo negro; lo invertimos para que combine con la nav oscura
-       y usamos un filtro para que el blanco del logo se vea bien */
-    filter: brightness(1.1);
-    display: block;
   }
 
   .nav-links {
@@ -119,7 +145,7 @@
     justify-content: center;
     position: relative;
     overflow: hidden;
-    padding: 14rem 3rem 4rem;
+    padding: 11rem 3rem 4rem;
   }
 
   .hero-bg {
@@ -589,7 +615,7 @@
 
   .ventaja-icon {
     width: 48px;
-    height: 80px;
+    height: 48px;
     border: 1px solid var(--border);
     display: flex;
     align-items: center;
@@ -873,10 +899,18 @@
 
   /* RESPONSIVE */
   @media (max-width: 900px) {
-    nav { padding: 1rem 1.5rem; }
-    .nav-links { display: none; }
+    .header-logo-banner { height: 70px; padding: 0 1rem; }
+    .logo-icon { width: 70px; height: 70px; }
+    .logo-icon img { width: 250px; }
+    .logo-text .logo-name { font-size: 1.2rem; }
+    .logo-text .logo-sub { font-size: 0.56rem; }
+    nav { top: 70px; padding: 0.6rem 1rem; justify-content: center; flex-wrap: wrap; gap: 0.5rem; }
+    .nav-links { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+    .nav-links a { font-size: 0.68rem; letter-spacing: 0.1em; }
+    .hero { padding: 10rem 1.5rem 3rem; }
     .hero-content { grid-template-columns: 1fr; }
-    .hero-visual { display: none; }
+    .hero-visual { display: block; margin-top: 2rem; }
+    .hero-img-wrap img { height: 260px; }
     #nosotros .grid { grid-template-columns: 1fr; }
     .products-grid { grid-template-columns: 1fr; }
     .ventajas-grid { grid-template-columns: 1fr 1fr; }
@@ -901,7 +935,13 @@
 <!-- NAV -->
 <header class="site-header">
   <a href="#" class="header-logo-banner">
-    <img src="GeoCreaciones.png" alt="GeoCreaciones Construcciones">
+    <div class="logo-icon">
+      <img src="geocreaciones-logo.png" alt="GeoCreaciones">
+    </div>
+    <div class="logo-text">
+      <span class="logo-name">GeoCreaciones</span>
+      <span class="logo-sub">Construcciones</span>
+    </div>
   </a>
 </header>
 <nav>
@@ -1329,7 +1369,7 @@
 <footer>
   <div class="footer-inner">
     <div>
-      <img src="GeoCreaciones.png" alt="GeoCreaciones Construcciones" style="height:60px; width:auto; display:block; margin-bottom:0.5rem; filter:brightness(1.05);">
+      <img src="geocreaciones-logo.png" alt="GeoCreaciones Construcciones" style="height:56px;width:auto;display:block;margin-bottom:0.4rem;">
       <div class="footer-tagline">Domos geodésicos · Trevelin, Chubut, Patagonia</div>
     </div>
     <ul class="footer-links">
